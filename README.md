@@ -104,7 +104,14 @@ Before every test, the tests rebuild both tables, so each task can pass on its o
 
    The test also checks that a customer with no city comes back with `city` null and that no connection is left open.
 3. **Close the injection hole (`JdbcCustomerRepository.findByCity`).** The supplied version joins the city into the SQL text. Run the test: the city `x' OR '1'='1` turns the `WHERE` into a condition that is true for every row, and every customer comes back. Rewrite it with a `?` placeholder in fixed text (`... WHERE city = ? ORDER BY id`), `prepareStatement`, and `setString(1, city)` before `executeQuery`. Open the ResultSet in its own try-with-resources. When it passes, Leeds still returns Amara and Chidi, and the attack finds nobody.
-4. **Save a customer (`JdbcCustomerRepository.save`).** `findById` reads columns into a new `Customer`; `save` goes the other way. Use `INSERT INTO customers (id, name, city) VALUES (?, ?, ?)`, bind `customer.id()`, `customer.name()` and `customer.city()` in that order (`setLong`, `setString`, `setString`; parameter numbers start at 1; a null city stores NULL) and run `executeUpdate`. Catch `SQLException` and wrap it as in Task 2. The test saves a customer with a city and one without, reads the rows back, saves an existing id (the primary key rejects it, and your exception must carry the `SQLException` as its cause) and checks that no connection is left open.
+4. **Save a customer (`JdbcCustomerRepository.save`).** Use `INSERT INTO customers (id, name, city) VALUES (?, ?, ?)`, bind `customer.id()`, `customer.name()` and `customer.city()` in that order and run `executeUpdate`. Catch `SQLException` and wrap it as in Task 2. The test saves a customer with a city and one without, reads the rows back, saves an existing id (the primary key rejects it, and your exception must carry the `SQLException` as its cause) and checks that no connection is left open.
+
+   <details><summary>Hint</summary>
+
+   `findById` reads columns into a new `Customer`; `save` goes the other way. Bind with `setLong`, `setString`, `setString`; parameter numbers start at 1, and a null city stores NULL.
+
+   </details>
+
 5. **Make the transfer one transaction (`AccountRepository.transfer`).** The supplied `transfer` credits the receiving account, then debits the paying one, each as its own auto-committed statement. Run the test: when the debit fails because the payer cannot cover it, the credit is already committed and money has appeared from nowhere. Make both statements one transaction. `conn` must still be in scope where you roll back, so open the Connection in its own try-with-resources and the two statements in an inner one:
 
    ```java
@@ -121,7 +128,14 @@ Before every test, the tests rebuild both tables, so each task can pass on its o
    ```
 
    When it passes, a transfer of 50.00 changes both balances, and a transfer of 500.00 throws `SQLException` and changes neither. The test cannot see whether you call `rollback()`. Call it anyway: a reused or pooled connection would otherwise carry the failed transaction into its next call.
-6. **Read the failing test (`JdbcCustomerRepository.findAll`).** This test fails from the start. Read its message: it prints the expected list and the actual one. Compare one customer field by field to see which value landed in which field, find the line in `findAll` that causes it and fix only that line.
+6. **Read the failing test (`JdbcCustomerRepository.findAll`).** This test fails from the start. Read its message: it prints the expected list and the actual one. Find the line in `findAll` that causes the difference and fix only that line.
+
+   <details><summary>Hint</summary>
+
+   Compare one customer field by field to see which value landed in which field.
+
+   </details>
+
 7. **Swap the storage (`Shop.customers`).** The service gets its storage only through `CustomerRepository`, and `customers` still constructs the `InMemoryCustomerRepository`, which forgets everything when the program stops. Change only that line, so it returns a `JdbcCustomerRepository` built from `jdbcUrl(env)`, `env.get("PGUSER")` and `env.get("PGPASSWORD")`. Nothing else in the service changes. When it passes, a customer saved through `Shop.customers` is a row in PostgreSQL.
 
 Leave `Customer.java`, `CustomerRepository.java` and `InMemoryCustomerRepository.java` as they are.
