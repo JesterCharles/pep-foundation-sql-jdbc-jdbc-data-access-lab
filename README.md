@@ -10,7 +10,7 @@ OPEN the project -> EDIT a TODO -> RUN the tests -> READ the feedback -> STOP wh
 
 In words: open the lab project, edit the TODO for one task, run the tests, read what the failing test tells you, and repeat with the next task. Stop when every test passes.
 
-**Time:** at most 40 minutes in two sittings. Start after the five JDBC Data Access pages.
+**Time:** at most 40 minutes in two sittings.
 
 | Sitting | Tasks | Estimate | Limit |
 | --- | --- | --- | --- |
@@ -140,11 +140,11 @@ Before every test, the tests rebuild both tables, so each task can pass on its o
 
 Leave `Customer.java`, `CustomerRepository.java` and `InMemoryCustomerRepository.java` as they are.
 
-**Starting over (optional):** the shipped version of every file is in the lab's original repository, in the same folder. Copy your attempt somewhere else first if you want to keep it, then paste the shipped text back into the file.
+**Starting over (optional):** before you change a file, keep a copy of it outside the `starter` folder. To restart that file, paste the copy back.
 
 ## What the tests do
 
-This is the test-database lifecycle from *Testing a repository against a test database*. Each run creates its own database with a unique name such as `jdbc_lab_3f9c0a1b7d2e`, applies the schema and seed rows before every test, runs the tests, closes the connections and drops the database. It never touches a database it did not create. While a run is in progress, the database's name is in `starter/target/lab-database.txt`. After setup, the tests run offline and talk only to that PostgreSQL server.
+Each run creates its own database with a unique name such as `jdbc_lab_3f9c0a1b7d2e`, applies the schema and seed rows before every test, runs the tests, closes the connections and drops the database. It never touches a database it did not create. While a run is in progress, the database's name is in `starter/target/lab-database.txt`. After setup, the tests run offline and talk only to that PostgreSQL server.
 
 ## Prerequisites
 
