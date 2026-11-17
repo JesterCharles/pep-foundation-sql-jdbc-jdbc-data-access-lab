@@ -1,4 +1,4 @@
-package shop;
+package exercise;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/** The shop's store-credit accounts. A balance can never go below 0 (CHECK in fixtures/schema.sql). */
+/** The shop's store-credit accounts. A balance can never go below 0 (a CHECK constraint on the accounts table). */
 public class AccountRepository {
     private final String url;
     private final String user;

@@ -1,4 +1,4 @@
--- The shop's two tables, applied to a fresh lab database before every test.
+-- The shop's two tables, created in a fresh lab database before every test.
 CREATE TABLE customers (
     id   bigint       PRIMARY KEY,
     name varchar(100) NOT NULL,

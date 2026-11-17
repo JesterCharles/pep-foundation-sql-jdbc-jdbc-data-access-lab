@@ -3,15 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>pep.sqljdbcfoundations</groupId>
-  <artifactId>jdbc-data-access-lab</artifactId>
+  <groupId>exercise</groupId>
+  <artifactId>exa-assessment</artifactId>
   <version>1.0.0</version>
 
-  <!-- Dependency and plugin versions match the Exa Java scaffold, so the
-       offline grader image (evolv/jdk17-maven) already has them cached.
-       The PostgreSQL JDBC driver is the one addition: the tests need it to
-       reach the database. The local Run Tests image (Dockerfile) caches it
-       from this file; the grader image must provide it too. -->
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,15 +14,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>42.7.14</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.11.3</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Lab extra: H2, the in-memory database the tests run your JDBC code against, in PostgreSQL mode. -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.5.252</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

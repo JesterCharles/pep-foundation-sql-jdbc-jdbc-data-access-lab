@@ -1,4 +1,4 @@
-package shop;
+package exercise;
 
 import java.util.Map;
 

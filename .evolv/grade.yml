@@ -1,15 +1,3 @@
-# PREREQUISITE (this lab only): the tests need a running PostgreSQL server
-# (16 or later) that they reach over TCP through PGHOST, PGPORT, PGUSER and
-# PGDATABASE (defaults localhost, 5432, the login user, postgres). The user
-# must be allowed to create databases; each run creates and drops its own lab
-# database. The manifest cannot provide that server. Without one, every test
-# fails with "Could not reach PostgreSQL to create the lab database": a
-# missing prerequisite, not a learner result.
-# The PostgreSQL JDBC driver (org.postgresql:postgresql 42.7.14) is the lab's
-# one dependency beyond the scaffold. The local Run Tests image (Dockerfile)
-# caches it from pom.xml; the grader image must have it cached as well,
-# because Maven runs offline (-o).
-#
 # Exa grading manifest: the SAME file drives local Run Tests and the server-side
 # grader. It is restored from the base repo before grading; learners can't change it.
 test:
