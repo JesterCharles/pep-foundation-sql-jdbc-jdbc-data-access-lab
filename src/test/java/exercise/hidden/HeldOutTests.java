@@ -87,7 +87,7 @@ class HeldOutTests {
         try {
             url = Shop.jdbcUrl(Map.of("PGHOST", "localhost", "PGPORT", "5432", "PGDATABASE", "jdbc_lab_3f9c0a1b7d2e"));
         } catch (UnsupportedOperationException e) {
-            fail("Task 1: " + e.getMessage() + ". Write Shop.jdbcUrl (lab instructions, Task 1).");
+            fail("Task 1: " + e.getMessage() + ". Write Shop.jdbcUrl (lab README, Task 1).");
             return;
         }
         assertEquals("jdbc:postgresql://localhost:5432/jdbc_lab_3f9c0a1b7d2e", url,
@@ -103,7 +103,7 @@ class HeldOutTests {
             assertEquals(Optional.empty(), repo.findById(99),
                     "Task 2: findById(99) should return Optional.empty(): when rs.next() is false there is no row to map.");
         } catch (UnsupportedOperationException e) {
-            fail("Task 2: " + e.getMessage() + ". Write JdbcCustomerRepository.findById (lab instructions, Task 2).");
+            fail("Task 2: " + e.getMessage() + ". Write JdbcCustomerRepository.findById (lab README, Task 2).");
         }
     }
 
@@ -113,7 +113,7 @@ class HeldOutTests {
         try {
             repo.save(new Customer(6, "Fen", null));
         } catch (UnsupportedOperationException e) {
-            fail("Task 4: " + e.getMessage() + ". Write JdbcCustomerRepository.save (lab instructions, Task 4).");
+            fail("Task 4: " + e.getMessage() + ". Write JdbcCustomerRepository.save (lab README, Task 4).");
             return;
         } catch (RuntimeException e) {
             fail("Task 4: save failed: " + e + (e.getCause() == null ? "" : ", caused by " + e.getCause().getMessage()));
