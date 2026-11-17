@@ -33,7 +33,7 @@ import java.util.Properties;
 final class LabDatabase {
     static final String PREFIX = "jdbc_lab_";
     static final Path RECORD = Path.of("target", "lab-database.txt");
-    static final Path FIXTURES = Path.of("..", "fixtures");
+    static final Path FIXTURES = Path.of("fixtures");
 
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final String DUPLICATE_DATABASE = "42P04";
@@ -53,7 +53,7 @@ final class LabDatabase {
         if (host.startsWith("/") || host.contains("\\") || host.contains(",")) {
             throw new SQLException("PGHOST is set to \"" + host + "\", which is not a host name. "
                     + "The tests connect over TCP, so set PGHOST to a host name or IP address such as localhost "
-                    + "(see README.md, Setup).");
+                    + "(see the lab instructions, Setup).");
         }
         return host;
     }
@@ -95,7 +95,7 @@ final class LabDatabase {
                     continue; // someone else's database has this name: leave it alone and try another
                 }
                 throw new SQLException("Could not reach PostgreSQL to create the lab database. "
-                        + "Check that the server is running and that the connection check in README.md "
+                        + "Check that the server is running and that the connection check in the lab instructions "
                         + "(Prerequisites) works with the same settings. Server said: " + e.getMessage(), e);
             }
         }
@@ -125,7 +125,7 @@ final class LabDatabase {
         }
     }
 
-    /** Replaces every table with empty ones from ../fixtures/schema.sql. */
+    /** Replaces every table with empty ones from fixtures/schema.sql. */
     static void emptyTables(Connection c) throws SQLException, IOException {
         try (Statement s = c.createStatement()) {
             s.execute("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
@@ -133,7 +133,7 @@ final class LabDatabase {
         }
     }
 
-    /** Empty tables plus the shop's seed rows from ../fixtures/shop-data.sql. */
+    /** Empty tables plus the shop's seed rows from fixtures/shop-data.sql. */
     static void shopData(Connection c) throws SQLException, IOException {
         emptyTables(c);
         try (Statement s = c.createStatement()) {

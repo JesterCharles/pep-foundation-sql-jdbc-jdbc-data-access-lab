@@ -24,7 +24,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * Public tests for the JDBC Data Access lab. Every test runs your Java code against a fresh copy of the
- * shop tables (../fixtures/schema.sql and ../fixtures/shop-data.sql) in this run's own lab database on
+ * shop tables (fixtures/schema.sql and fixtures/shop-data.sql) in this run's own lab database on
  * your local PostgreSQL server, created before the first test and dropped after the last one.
  */
 @TestMethodOrder(MethodOrderer.MethodName.class)
@@ -94,7 +94,7 @@ class ShopLabTest {
         try {
             sample = Shop.jdbcUrl(Map.of("PGHOST", "db.shop.test", "PGPORT", "6543", "PGDATABASE", "shop"));
         } catch (UnsupportedOperationException e) {
-            fail("Task 1: " + e.getMessage() + ". Write Shop.jdbcUrl (README.md, Task 1).");
+            fail("Task 1: " + e.getMessage() + ". Write Shop.jdbcUrl (lab instructions, Task 1).");
             return;
         }
         assertEquals("jdbc:postgresql://db.shop.test:6543/shop", sample,
@@ -121,7 +121,7 @@ class ShopLabTest {
         try {
             chidi = repo.findById(3);
         } catch (UnsupportedOperationException e) {
-            fail("Task 2: " + e.getMessage() + ". Write JdbcCustomerRepository.findById (README.md, Task 2).");
+            fail("Task 2: " + e.getMessage() + ". Write JdbcCustomerRepository.findById (lab instructions, Task 2).");
             return;
         }
         assertEquals(Optional.of(new Customer(3, "Chidi", "Leeds")), chidi,
@@ -159,7 +159,7 @@ class ShopLabTest {
             repo.save(new Customer(5, "Eli", "York"));
             repo.save(new Customer(6, "Fen", null));
         } catch (UnsupportedOperationException e) {
-            fail("Task 4: " + e.getMessage() + ". Write JdbcCustomerRepository.save (README.md, Task 4).");
+            fail("Task 4: " + e.getMessage() + ". Write JdbcCustomerRepository.save (lab instructions, Task 4).");
             return;
         } catch (RuntimeException e) {
             fail("Task 4: save failed: " + e + (e.getCause() == null ? "" : ", caused by " + e.getCause().getMessage()));
@@ -229,7 +229,7 @@ class ShopLabTest {
             roster = Shop.customers(labEnvironment());
             roster.save(new Customer(7, "Gus", "Leeds"));
         } catch (UnsupportedOperationException e) {
-            fail("Task 7: " + e.getMessage() + ". Tasks 1 and 4 come first (README.md, Task 7).");
+            fail("Task 7: " + e.getMessage() + ". Tasks 1 and 4 come first (lab instructions, Task 7).");
             return;
         }
         assertEquals(List.of(row("7", "Gus", "Leeds")), rows("SELECT id, name, city FROM customers WHERE id = 7"),
