@@ -1,4 +1,4 @@
-package shop;
+package exercise;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The same CustomerRepository, stored in the customers table of PostgreSQL through JDBC.
- * The tests create it with the address of their own lab database on your local server.
+ * The same CustomerRepository, stored in the customers table of the shop's database through JDBC.
+ * The tests create it with the address of their own throwaway lab database.
  */
 public class JdbcCustomerRepository implements CustomerRepository {
     private final String url;
     private final String user;
     private final String password;
 
-    /** password may be null: the PostgreSQL driver then reads your password file. */
+    /** user and password are passed to DriverManager as they are; password may be null. */
     public JdbcCustomerRepository(String url, String user, String password) {
         this.url = url;
         this.user = user;
